@@ -1,13 +1,17 @@
-({
-   
-	getSelectedValue : function(component, event, helper) {
-        //find autocomplete component using aura id
-		const autoCompleteComponent = component.find("account-record");
-        if(autoCompleteComponent){
-            //get selected option from auto complete component's selectedOption attribute
-            const selectedOption = autoCompleteComponent.get("v.selectedOption");
-            //set selected value in component attribute
-            component.set("v.selectedValue", selectedOption);
-        }
-	}
-})
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <aura:attribute type="String" name="selectedValue" />
+    
+    <lightning:card title="AutoComplete Demo">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="12" padding="around-small">
+                <c:AutoCompleteAura aura:id="account-record" label="Account" objectApiName="Account" idFieldApiName="Id" valueFieldApiName="Name" />
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:button label="Get Selected Value" variant="brand" onclick="{!c.getSelectedValue}" />
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:formattedText value="{! 'Selected Option is: '+v.selectedValue}" />
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>
